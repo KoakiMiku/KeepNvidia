@@ -11,40 +11,32 @@ namespace KeepNvidia
         {
             try
             {
-                bool isSingle = SingleInstance.IsSingle();
-                if (!isSingle)
-                {
-                    return;
-                }
-
-                if (args.Length == 0 )
+                if (args.Length == 0)
                 {
                     switch (MessageBox.Show($"{I18N.GetString("Setup")}", name,
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information))
                     {
                         case DialogResult.Yes:
                             Autorun.Add();
+                            KeepRunning.Start();
                             break;
                         case DialogResult.No:
                             Autorun.Remove();
                             KeepRunning.Stop();
                             break;
-                        default:
-                            break;
                     }
+                    return;
                 }
                 else if (args[0] == "-start")
                 {
                     KeepRunning.Start();
                 }
-                else if (args[0] == "-stop")
-                {
-                    KeepRunning.Stop();
-                }
                 else
                 {
                     throw new ArgumentException();
                 }
+
+                Application.Run();
             }
             catch (Exception ex)
             {

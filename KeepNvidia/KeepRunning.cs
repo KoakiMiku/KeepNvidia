@@ -14,6 +14,29 @@ namespace KeepNvidia
         {
             try
             {
+                bool isSingle = SingleInstance.IsSingle();
+                if (!isSingle)
+                {
+                    return;
+                }
+                else
+                {
+                    Task.Run(new Action(() =>
+                    {
+                        KeepNvidiaRunning();
+                    }));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(null, ex.InnerException ?? ex);
+            }
+        }
+
+        private static void KeepNvidiaRunning()
+        {
+            try
+            {
                 Device device = GetNvidiaDevice();
                 Context context = null;
 
@@ -122,10 +145,14 @@ namespace KeepNvidia
         {
             try
             {
+                Process process = Process.GetCurrentProcess();
                 Process[] processes = Process.GetProcessesByName(name);
                 foreach (var item in processes)
                 {
-                    item.Kill();
+                    if (item.Id != process.Id)
+                    {
+                        item.Kill();
+                    }
                 }
             }
             catch (Exception ex)

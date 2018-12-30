@@ -23,21 +23,21 @@ namespace KeepNvidia
                         case DialogResult.No:
                             Autorun.Remove();
                             KeepRunning.Stop();
-                            return;
-                        default:
-                            return;
+                            break;
                     }
                 }
                 else if (args[0] == "-start")
                 {
                     KeepRunning.Start();
                 }
+                else if (args[0] == "-stop")
+                {
+                    KeepRunning.Stop();
+                }
                 else
                 {
                     throw new ArgumentException();
                 }
-
-                Application.Run();
             }
             catch (Exception ex)
             {

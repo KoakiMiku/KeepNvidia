@@ -21,10 +21,8 @@ namespace KeepNvidia
                 }
                 else
                 {
-                    Task.Run(new Action(() =>
-                    {
-                        KeepNvidiaRunning();
-                    }));
+                    Task.Run(new Action(() => KeepNvidiaRunning()));
+                    Application.Run();
                 }
             }
             catch (Exception ex)
@@ -54,7 +52,7 @@ namespace KeepNvidia
                     }
                     else if (context != null && power)
                     {
-                        TestBandwidthRange(context, device);
+                        MemoryCopy(context, device);
                     }
 
                     Task.Delay(1000).Wait();
@@ -104,7 +102,7 @@ namespace KeepNvidia
             }
         }
 
-        private static void TestBandwidthRange(Context context, Device device)
+        private static void MemoryCopy(Context context, Device device)
         {
             try
             {

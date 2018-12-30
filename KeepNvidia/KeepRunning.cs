@@ -1,0 +1,137 @@
+using NOpenCL;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace KeepNvidia
+{
+    class KeepRunning
+    {
+        private static readonly string name = "KeepNvidia";
+
+        public static void Start()
+        {
+            try
+            {
+                Device device = GetNvidiaDevice();
+                Context context = null;
+
+                while (true)
+                {
+                    bool power = SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Online;
+                    if (context == null && power)
+                    {
+                        context = Context.Create(device);
+                    }
+                    else if (context != null && !power)
+                    {
+                        context.Dispose();
+                        context = null;
+                    }
+                    else if (context != null && power)
+                    {
+                        TestBandwidthRange(context, device);
+                    }
+
+                    Task.Delay(1000).Wait();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(null, ex.InnerException ?? ex);
+            }
+        }
+
+        private static Device GetNvidiaDevice()
+        {
+            try
+            {
+                Platform[] platforms = Platform.GetPlatforms();
+                if (platforms.Length == 0)
+                {
+                    throw new PlatformNotSupportedException("No OpenCL platform found.");
+                }
+
+                Platform platform = null;
+                foreach (Platform item in platforms)
+                {
+                    if (item.Name.Contains("NVIDIA"))
+                    {
+                        platform = item;
+                        break;
+                    }
+                }
+                if (platform == null)
+                {
+                    throw new PlatformNotSupportedException("No NVIDIA platform found.");
+                }
+
+                Device[] devices = platform.GetDevices(DeviceType.Gpu);
+                if (devices.Length == 0)
+                {
+                    throw new PlatformNotSupportedException("No GPU devices found.");
+                }
+
+                return devices[0];
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(null, ex.InnerException ?? ex);
+            }
+        }
+
+        private static void TestBandwidthRange(Context context, Device device)
+        {
+            try
+            {
+                int size = 1024;
+
+                using (CommandQueue commandQueue = context.CreateCommandQueue(device, CommandQueueProperties.ProfilingEnable))
+                {
+                    byte[] buffer = new byte[size];
+                    for (int i = 0; i < size; i++)
+                    {
+                        buffer[i] = 0xFF;
+                    }
+
+                    using (NOpenCL.Buffer d_idata = context.CreateBuffer(MemoryFlags.ReadOnly, size),
+                                          d_odata = context.CreateBuffer(MemoryFlags.WriteOnly, size))
+                    {
+                        unsafe
+                        {
+                            fixed (byte* rawData = buffer)
+                            {
+                                using (commandQueue.EnqueueWriteBuffer(d_idata, true, 0, size, (IntPtr)rawData)) { }
+                            }
+                        }
+                        commandQueue.Finish();
+
+                        using (commandQueue.EnqueueCopyBuffer(d_idata, d_odata, 0, 0, size)) { }
+                        commandQueue.Finish();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(null, ex.InnerException ?? ex);
+            }
+        }
+
+        public static void Stop()
+        {
+            try
+            {
+                Process[] processes = Process.GetProcessesByName(name);
+                foreach (var item in processes)
+                {
+                    item.Kill();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(null, ex.InnerException ?? ex);
+            }
+        }
+    }
+}

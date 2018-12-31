@@ -7,6 +7,7 @@ namespace KeepNvidia
     class Autorun
     {
         private static readonly string name = "KeepNvidia";
+
         private static readonly string path = Process.GetCurrentProcess().MainModule.FileName;
         private static readonly string autorunPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
 

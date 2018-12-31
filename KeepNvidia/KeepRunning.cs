@@ -10,6 +10,9 @@ namespace KeepNvidia
     {
         private static readonly string name = "KeepNvidia";
 
+        private static readonly int interval = 10; // Seconds
+        private static readonly int size = 1024; // Bytes
+
         public static void Start()
         {
             try
@@ -55,7 +58,7 @@ namespace KeepNvidia
                         MemoryCopy(context, device);
                     }
 
-                    Task.Delay(1000).Wait();
+                    Task.Delay(TimeSpan.FromSeconds(interval)).Wait();
                 }
             }
             catch (Exception ex)
@@ -106,8 +109,6 @@ namespace KeepNvidia
         {
             try
             {
-                int size = 1024;
-
                 using (CommandQueue commandQueue = context.CreateCommandQueue(device, CommandQueueProperties.ProfilingEnable))
                 {
                     byte[] buffer = new byte[size];

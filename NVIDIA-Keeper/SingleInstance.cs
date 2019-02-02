@@ -6,7 +6,7 @@ namespace NVIDIAKeeper
 {
     class SingleInstance
     {
-        private static readonly string name = "NVIDIA-Keeper";
+        private static readonly string name = "NVIDIA Keeper";
 
         public static bool IsSingle()
         {

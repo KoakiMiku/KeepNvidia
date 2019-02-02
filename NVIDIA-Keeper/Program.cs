@@ -5,7 +5,7 @@ namespace NVIDIAKeeper
 {
     static class Program
     {
-        private static readonly string name = "NVIDIA-Keeper";
+        private static readonly string name = "NVIDIA Keeper";
 
         private static void Main(string[] args)
         {

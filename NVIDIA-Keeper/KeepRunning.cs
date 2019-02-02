@@ -10,7 +10,7 @@ namespace NVIDIAKeeper
     {
         private static readonly string name = "NVIDIA Keeper";
 
-        private static readonly int interval = 4; // Seconds
+        private static readonly int interval = 5; // Seconds
         private static readonly int size = 1024; // Bytes
 
         public static void Start()

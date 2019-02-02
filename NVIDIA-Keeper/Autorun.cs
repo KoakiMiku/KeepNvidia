@@ -2,11 +2,11 @@ using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 
-namespace KeepNvidia
+namespace NVIDIAKeeper
 {
     class Autorun
     {
-        private static readonly string name = "KeepNvidia";
+        private static readonly string name = "NVIDIA-Keeper";
 
         private static readonly string path = Process.GetCurrentProcess().MainModule.FileName;
         private static readonly string autorunPath = @"Software\Microsoft\Windows\CurrentVersion\Run";

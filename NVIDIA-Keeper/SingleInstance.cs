@@ -2,11 +2,11 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 
-namespace KeepNvidia
+namespace NVIDIAKeeper
 {
     class SingleInstance
     {
-        private static readonly string name = "KeepNvidia";
+        private static readonly string name = "NVIDIA-Keeper";
 
         public static bool IsSingle()
         {

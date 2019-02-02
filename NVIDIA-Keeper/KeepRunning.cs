@@ -4,13 +4,13 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace KeepNvidia
+namespace NVIDIAKeeper
 {
     class KeepRunning
     {
-        private static readonly string name = "KeepNvidia";
+        private static readonly string name = "NVIDIA-Keeper";
 
-        private static readonly int interval = 10; // Seconds
+        private static readonly int interval = 4; // Seconds
         private static readonly int size = 1024; // Bytes
 
         public static void Start()

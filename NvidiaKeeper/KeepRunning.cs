@@ -8,7 +8,7 @@ namespace NVIDIAKeeper
 {
     class KeepRunning
     {
-        private static readonly string name = "NVIDIA Keeper";
+        private static readonly string name = "NvidiaKeeper";
 
         private static readonly int interval = 5; // Seconds
         private static readonly int size = 1024; // Bytes

@@ -6,7 +6,7 @@ namespace NVIDIAKeeper
 {
     class Autorun
     {
-        private static readonly string name = "NVIDIA Keeper";
+        private static readonly string name = "NvidiaKeeper";
 
         private static readonly string path = Process.GetCurrentProcess().MainModule.FileName;
         private static readonly string autorunPath = @"Software\Microsoft\Windows\CurrentVersion\Run";

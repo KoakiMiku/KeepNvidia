@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NOpenCL", "NOpenCL\NOpenCL.csproj", "{8A3885B4-ECC0-46F7-85BD-019EEAFD58BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NVIDIA-Keeper", "NVIDIA-Keeper\NVIDIA-Keeper.csproj", "{C7C3F68A-3D43-4C7A-B3AC-A7D1E777FA01}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NvidiaKeeper", "NvidiaKeeper\NvidiaKeeper.csproj", "{C7C3F68A-3D43-4C7A-B3AC-A7D1E777FA01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
